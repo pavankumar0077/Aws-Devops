@@ -5,6 +5,7 @@
 - Swagger -- api documentation
 
 **Code ref link : https://github.com/listentolearn/aws-api-gateway-rest-api/tree/main**
+Other ref link : https://medium.com/everything-cloud/building-a-serverless-api-with-aws-api-gateway-and-lambda-functions-bb6d6595d3df
 
 Step 1: Dyanano DB
 --
