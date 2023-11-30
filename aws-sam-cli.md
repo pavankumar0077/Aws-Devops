@@ -35,3 +35,8 @@ sam deploy -t <template file>  \\
 6) sam sync
 - Quickly sync local application changes to the AWS Cloud
 
+7) sam local start-api
+- sam local start-api is a command that you can use to start an API Gateway locally using the AWS Serverless Application Model (SAM) CLI.
+- This can be useful for testing and debugging your serverless applications locally before deploying them to AWS.
+
+
