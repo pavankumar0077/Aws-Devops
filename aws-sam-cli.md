@@ -36,7 +36,191 @@ sam deploy -t <template file>  \\
 - Quickly sync local application changes to the AWS Cloud
 
 7) sam local start-api
+
 - sam local start-api is a command that you can use to start an API Gateway locally using the AWS Serverless Application Model (SAM) CLI.
 - This can be useful for testing and debugging your serverless applications locally before deploying them to AWS.
+
+## HELLO WORLD APPLICATION
+REF LINK : https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html#serverless-getting-started-hello-world-remote-invoke
+
+![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/a7c70986-0130-4084-bd76-dcfb0d548eaf)
+
+### Imp stuff
+
+hello_world/app.py – Contains your Lambda function code.
+- Main handler function for our lambda
+- ![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/d8dbc2f3-81d3-4cff-a7b6-74e73e7f003d)
+- This is connected to aws by using template.ymal file
+
+
+hello_world/requirements.txt – Contains any Python dependencies that your Lambda function requires.
+
+samconfig.toml – Configuration file for your application that stores default parameters used by the AWS SAM CLI.
+
+template.yaml – The AWS SAM template that contains your application infrastructure code.
+- It creates Resources, Type -- Cosume contrat shortcut to create lambda functions
+- ![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/fe78e2ac-52c8-443c-829d-fbdaf3428889)
+- Output -- We can define output same like output.tf in terraform
+
+Steps:
+1) sam init
+- Template -- Give requried details
+- It created CloudFormation Slack
+- ![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/2b1f0053-5080-46a9-b407-32ae11abc9aa)
+- ![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/ee571dab-c062-49a2-acde-06e6d024c1ea)
+- ![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/d6009f7b-8f4d-44e0-bf6e-563e71e04ad2)
+
+
+2) Go inside the created dir
+- Do some modification like Created-dir/app.py, template and etc
+
+3) Test locally
+- sam local start-api --port 3005
+
+4) Test in cloud
+```
+idrbt@idrbt:~/Desktop/DevOps/Aws-Devops/sam-example-demo$ sam deploy --guided
+
+Configuring SAM deploy
+======================
+
+        Looking for config file [samconfig.toml] :  Found
+        Reading default arguments  :  Success
+
+        Setting default arguments for 'sam deploy'
+        =========================================
+        Stack Name [sam-example-demo]: 
+        AWS Region [us-east-1]: 
+        #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+        Confirm changes before deploy [Y/n]: Y
+        #SAM needs permission to be able to create roles to connect to the resources in your template
+        Allow SAM CLI IAM role creation [Y/n]: Y
+        #Preserves the state of previously provisioned resources when an operation fails
+        Disable rollback [y/N]: y  
+        HelloWorldFunction has no authentication. Is this okay? [y/N]: y
+        Save arguments to configuration file [Y/n]: Y
+        SAM configuration file [samconfig.toml]: 
+        SAM configuration environment [default]: 
+
+        Looking for resources needed for deployment:
+
+        Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-zicwjz1nf0e1
+        A different default S3 bucket can be set in samconfig.toml and auto resolution of buckets turned off by setting resolve_s3=False
+                                                                                                                                                                            
+        Parameter "stack_name=sam-example-demo" in [default.deploy.parameters] is defined as a global parameter [default.global.parameters].                                
+        This parameter will be only saved under [default.global.parameters] in /home/idrbt/Desktop/DevOps/Aws-Devops/sam-example-demo/samconfig.toml.                       
+
+        Saved arguments to config file
+        Running 'sam deploy' for future deployments will use the parameters saved above.
+        The above parameters can be changed by modifying samconfig.toml
+        Learn more about samconfig.toml syntax at 
+        https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+
+        Uploading to sam-example-demo/496d6aec2b52d9e5198393d0e1429baf  533732 / 533732  (100.00%)
+
+        Deploying with following values
+        ===============================
+        Stack name                   : sam-example-demo
+        Region                       : us-east-1
+        Confirm changeset            : True
+        Disable rollback             : True
+        Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-zicwjz1nf0e1
+        Capabilities                 : ["CAPABILITY_IAM"]
+        Parameter overrides          : {}
+        Signing Profiles             : {}
+
+Initiating deployment
+=====================
+
+        Uploading to sam-example-demo/a346ab3b46dc6d89de51a91a9c458522.template  1267 / 1267  (100.00%)
+
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Operation                                  LogicalResourceId                          ResourceType                               Replacement                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
++ Add                                      HelloWorldFunctionHelloWorldPermissionPr   AWS::Lambda::Permission                    N/A                                      
+                                           od                                                                                                                             
++ Add                                      HelloWorldFunctionRole                     AWS::IAM::Role                             N/A                                      
++ Add                                      HelloWorldFunction                         AWS::Lambda::Function                      N/A                                      
++ Add                                      ServerlessRestApiDeployment47fc2d5f9d      AWS::ApiGateway::Deployment                N/A                                      
++ Add                                      ServerlessRestApiProdStage                 AWS::ApiGateway::Stage                     N/A                                      
++ Add                                      ServerlessRestApi                          AWS::ApiGateway::RestApi                   N/A                                      
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Changeset created successfully. arn:aws:cloudformation:us-east-1:----:changeSet/samcli-deploy1701341837/1385aba4-b279-4f0d-94d4-3df5ccbd8ce2
+
+
+Previewing CloudFormation changeset before deployment
+======================================================
+Deploy this changeset? [y/N]: y
+
+2023-11-30 16:27:36 - Waiting for stack create/update to complete
+
+CloudFormation events from stack operations (refresh every 5.0 seconds)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ResourceStatus                             ResourceType                               LogicalResourceId                          ResourceStatusReason                     
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE_IN_PROGRESS                         AWS::CloudFormation::Stack                 sam-example-demo                           User Initiated                           
+CREATE_IN_PROGRESS                         AWS::IAM::Role                             HelloWorldFunctionRole                     -                                        
+CREATE_IN_PROGRESS                         AWS::IAM::Role                             HelloWorldFunctionRole                     Resource creation Initiated              
+CREATE_COMPLETE                            AWS::IAM::Role                             HelloWorldFunctionRole                     -                                        
+CREATE_IN_PROGRESS                         AWS::Lambda::Function                      HelloWorldFunction                         -                                        
+CREATE_IN_PROGRESS                         AWS::Lambda::Function                      HelloWorldFunction                         Resource creation Initiated              
+CREATE_COMPLETE                            AWS::Lambda::Function                      HelloWorldFunction                         -                                        
+CREATE_IN_PROGRESS                         AWS::ApiGateway::RestApi                   ServerlessRestApi                          -                                        
+CREATE_IN_PROGRESS                         AWS::ApiGateway::RestApi                   ServerlessRestApi                          Resource creation Initiated              
+CREATE_COMPLETE                            AWS::ApiGateway::RestApi                   ServerlessRestApi                          -                                        
+CREATE_IN_PROGRESS                         AWS::ApiGateway::Deployment                ServerlessRestApiDeployment47fc2d5f9d      -                                        
+CREATE_IN_PROGRESS                         AWS::Lambda::Permission                    HelloWorldFunctionHelloWorldPermissionPr   -                                        
+                                                                                      od                                                                                  
+CREATE_IN_PROGRESS                         AWS::Lambda::Permission                    HelloWorldFunctionHelloWorldPermissionPr   Resource creation Initiated              
+                                                                                      od                                                                                  
+CREATE_COMPLETE                            AWS::Lambda::Permission                    HelloWorldFunctionHelloWorldPermissionPr   -                                        
+                                                                                      od                                                                                  
+CREATE_IN_PROGRESS                         AWS::ApiGateway::Deployment                ServerlessRestApiDeployment47fc2d5f9d      Resource creation Initiated              
+CREATE_COMPLETE                            AWS::ApiGateway::Deployment                ServerlessRestApiDeployment47fc2d5f9d      -                                        
+CREATE_IN_PROGRESS                         AWS::ApiGateway::Stage                     ServerlessRestApiProdStage                 -                                        
+CREATE_IN_PROGRESS                         AWS::ApiGateway::Stage                     ServerlessRestApiProdStage                 Resource creation Initiated              
+CREATE_COMPLETE                            AWS::ApiGateway::Stage                     ServerlessRestApiProdStage                 -                                        
+CREATE_COMPLETE                            AWS::CloudFormation::Stack                 sam-example-demo                           -                                        
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CloudFormation outputs from deployed stack
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Outputs                                                                                                                                                                 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Key                 HelloWorldFunctionIamRole                                                                                                                           
+Description         Implicit IAM Role created for Hello World function                                                                                                  
+Value               arn:aws:iam::---:role/----                                                                
+
+Key                 HelloWorldApi                                                                                                                                       
+Description         API Gateway endpoint URL for Prod stage for Hello World function                                                                                    
+Value               https://-----/Prod/hello/                                                                                  
+
+Key                 HelloWorldFunction                                                                                                                                  
+Description         Hello World Lambda Function ARN                                                                                                                     
+Value               arn:aws:lambda:------                                                    
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Successfully created/updated stack - sam-example-demo in us-east-1
+```
+
+![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/aa781ac4-32ed-4cac-b5b2-f8bb9bb5cf36)
+
+
+Step 5 : sam sync -- to sync the changes
+
+Step 6 : sam delete
+
+![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/0be9dbe6-9c2a-4230-98fa-fb1a97b99c08)
+
+
+
+
 
 
