@@ -1,4 +1,4 @@
-
+BASIC PROJECT REF LINK : https://ishan35.hashnode.dev/leveraging-aws-database-services-for-real-time-projects-in-depth-guide
 
 
 Database Scaling – Horizontal vs. Vertical
