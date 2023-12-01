@@ -5,6 +5,8 @@
 
 DIAGRAM LINK : https://app.ilograph.com/demo.ilograph.Ilograph/Request
 
+OTHER REF LINK :https://medium.com/@weframe.tech/different-types-of-e-commerce-architecture-designs-and-types-67ef1b4518cc
+
 Architecture divided into 3 layers
 --
 1) Presentation Layer
