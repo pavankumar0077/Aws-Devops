@@ -45,10 +45,12 @@ Data Transfer Costs:
 
 Data Transfer Out: Similar to the servered architecture, costs for data transferred out of AWS to the internet.
 Estimating Costs:
-To estimate costs more accurately, you can use the AWS Pricing Calculator (https://calculator.aws.amazon.com/) and input specific details such as the number of EC2 instances, Lambda invocations, database read/write operations, and other relevant parameters.
+To estimate costs more accurately, you can use the AWS Pricing Calculator ([https://calculator.aws.amazon.com/](https://calculator.aws/#/)) and input specific details such as the number of EC2 instances, Lambda invocations, database read/write operations, and other relevant parameters.
 
 Keep in mind that serverless architectures often offer cost advantages due to their pay-as-you-go model, where you only pay for actual usage. However, the complexity of your application and specific requirements will influence the overall cost comparison.
 
 Always check the AWS Pricing page for the most up-to-date pricing information: https://aws.amazon.com/pricing/
 
 Remember that actual costs can vary, and it's advisable to regularly monitor and adjust resources based on changing usage patterns to optimize costs.
+
+CAST AI -- tool to cut the cost 
