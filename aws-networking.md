@@ -55,6 +55,9 @@ Senario 2 :
 - Other way to connect is like we can use Client VPC to connect their network.
 - AWS provides CLIENT VPN ENDPOINT to connect with REMOTE PC or CLIENT, WE need to create SUBNET of our network to the CLIENT POINT ENDPOINT for REMOTE NETWORK.
 
+![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/8d178c6f-7ed1-483e-af3e-7ff0c13b7946)
+
+
 VPC TO VPC Connectivity
 --
 - Considering a situation where we have multiple VPCs but sitll you want to talk to each other other using a dedicated and a private network between this two.
@@ -67,3 +70,23 @@ TRANSIT GATEWAY
 --
 - It will simplifies this where all the VPC's which we call typically a SPOKE VPCs connect to a TRANSIT GATEWAY and then TRANSIT GATEWAY can connect to your VPC again in a similar fashion now this acts a HUB.
 -  Every VPC can talk to your corporate (on-prem) data center so we can connect on-prem using vpc direct or vpn
+
+VPC ENDPOINT SERVICES
+--
+- In our senario the web services need to upload and download data from the S3. As we know S3 buckets aer within the region or differnet region but can be accessed over the internet.
+- Even our EC2 Machines are in VPC. If you eant to access S3 the traffic actually needs to go through the internet that means it will go to the NAT from NAT it will go to IGW and there it will go to S3. We are depending on the intenet traffic which is not considered as safe if you are not encrypting the taffic.
+- We also depend on NAT device bandwidth for example if sometimes NAT goes down then we can't really access the S3.
+- AWS did. Example if you have S3 bucket or DYNAMODB in the same AWS region as your VPC. You can rather use something called VPC ENDPOINT SERVICE.
+- We can actually reach to S3 or DynamoDB through that VPC endpoint and that means you don't have to really go the internet route and it is automatically this is a device which is manged by AWS and event there is not bandwidth constraint.
+- For all this communicate we need to modify the ROUTE TABLES.
+
+VPC EndPoint Gateway & VPC Endpoint Interfaces
+--
+- Gateway is used to reach S3 or DyanamoDB if you wanna reach any other AWS services, For example you want to access SQS, Cloudwatch ....Your machine would go over internet right to reach to these endpoints. But with **VPC endpoint Interface** you can again reach to this services privately from your but the way it differs from the GATEWAY is that in case of VPC endpint it creates something called ENI ( ELASTIC NETWORK INTERFACE ) into your subnet and then the traffic is routed throught that ENI to this VPC endpoint services and there are around 60 VPC endpoint services. We can reach privately without going over the internet.
+
+VPC Endpoint - PRIVATE LINK
+--
+- You might have some SAAS Services you might have subscribed to some SAAS services where the end where the software provider provides you access to their software.
+- The provider also be running their workloads in AWS ans they want to privately expose their service to your VPC. with in VPC. Of course one of the option is they expose this services through the INTERNET ans you access over the internet but as both VPCs are in AWS you have better options to have network connecitivity.
+- Saas provider don't want to expose all the services present he want to provider access  to NETWORK LOAD BALANCER using PRIVATE LINK
+- Private Link privately exposes only this network LOAD BALANCER Service to your VPC, So any EC2 want to access this SAAS service can go through the VPC Endpoint interface throught private link to the network load balancer
