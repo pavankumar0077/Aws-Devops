@@ -90,3 +90,6 @@ VPC Endpoint - PRIVATE LINK
 - The provider also be running their workloads in AWS ans they want to privately expose their service to your VPC. with in VPC. Of course one of the option is they expose this services through the INTERNET ans you access over the internet but as both VPCs are in AWS you have better options to have network connecitivity.
 - Saas provider don't want to expose all the services present he want to provider access  to NETWORK LOAD BALANCER using PRIVATE LINK
 - Private Link privately exposes only this network LOAD BALANCER Service to your VPC, So any EC2 want to access this SAAS service can go through the VPC Endpoint interface throught private link to the network load balancer
+
+
+![image](https://github.com/pavankumar0077/Aws-Devops/assets/40380941/8f6c366f-caed-425e-addd-a1c04a3d65c6)
